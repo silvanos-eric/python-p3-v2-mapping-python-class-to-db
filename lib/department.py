@@ -33,3 +33,17 @@ class Department:
 
         CURSOR.execute(sql)
         CONN.commit()
+
+    def save(self):
+        """ Insert a new row with the name and location values of the current Department instance.
+            Update object id attribute using the primary key value of new row.
+        """
+        sql = """
+            INSERT INTO departments (name, location)
+            VALUES (?, ?)
+        """
+
+        CURSOR.execute(sql, (self.name, self.location))
+        CONN.commit()
+
+        self.id = CURSOR.lastrowid
